@@ -13,8 +13,6 @@ int main()
     list.push_back(4);
     list.push_back(5);
     list.push_back(6);
-    list.push_back(7);
-    list.push_back(8);
 
     for (int i = 0; i < list.size(); i++)
 
