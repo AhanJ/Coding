@@ -12,10 +12,6 @@ int main()
     list.push_back(3);
     list.push_back(4);
     list.push_back(5);
-    list.push_back(6);
-    list.push_back(7);
-    list.push_back(8);
-    list.push_back(9);
 
     for (int i = 0; i < list.size(); i++)
 
@@ -23,13 +19,13 @@ int main()
         cout << list[i];
     }
 
-    cout << endl;
+    // cout << endl;
 
-    for (auto i : list)
+    // for (auto i : list)
 
-    {
-        cout << i;
-    }
+    // {
+    //     cout << i;
+    // }
 
     return 0;
 }
