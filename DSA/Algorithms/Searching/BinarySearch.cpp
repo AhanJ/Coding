@@ -46,7 +46,7 @@ int BinarySearch(int arr[], int l, int h, int key)
 int main()
 
 {
-    cout << "Ahan Jain\nA2305221174\n\n";
+    cout << "Ahan Jain\nA2305221174\n";
 
     int n, i;
 
