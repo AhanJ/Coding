@@ -6,6 +6,16 @@ using namespace std;
 int Partition(int arr[], int l, int h)
 
 {
+    // cout << endl;
+
+    // for (int i = 0; i < 8; i++)
+
+    // {
+    //     cout << arr[i] << " | ";
+    // }
+
+    // cout << endl;
+
     int pivot = arr[l];
     int pivpos = l;
 
@@ -35,12 +45,32 @@ int Partition(int arr[], int l, int h)
 
     swap(arr[pivpos], arr[h]);
 
+    // cout << endl;
+
+    // for (int i = l; i <= h; i++)
+
+    // {
+    //     cout << arr[i] << " | ";
+    // }
+
+    // cout << endl;
+
     return h;
 }
 
 void QuickSort(int arr[], int l, int h)
 
 {
+    // cout << endl;
+
+    // for (int i = 0; i < 8; i++)
+
+    // {
+    //     cout << arr[i] << " | ";
+    // }
+
+    // cout << endl;
+
     if (l < h) // making sure there are at least 2 elements in the array
 
     {
