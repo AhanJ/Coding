@@ -1,69 +1,54 @@
 #include <iostream>
-#include <vector>
-#include <queue>
-
 using namespace std;
 
-struct Edge // Structure to represent an edge
+#define V 5
+
+int minKey(int key[], bool mstSet[])
 
 {
-    int dest, weight;
-};
+    int min = INT_MAX, min_index;
 
-struct CompareEdges
-{
-    bool operator()(const Edge &a, const Edge &b)
+    for (int v = 0; v < V; v++)
+        if (mstSet[v] == false && key[v] < min)
+            min = key[v], min_index = v;
 
-    {
-        return a.weight > b.weight;
-    }
-};
+    return min_index;
+}
 
-void primMinimumSpanningTree(vector<vector<Edge>> &graph, int startVertex)
+void printMST(int parent[], int graph[V][V])
 
 {
-    int numVertices = graph.size();
-    vector<bool> visited(numVertices, false);
-    priority_queue<Edge, vector<Edge>, CompareEdges> pq;
+    cout << "\nEdge \tWeight\n\n";
+    for (int i = 1; i < V; i++)
+        cout << parent[i] << " - " << i << " \t"
+             << graph[i][parent[i]] << " \n";
+}
 
-    // Start with the given start vertex
-    visited[startVertex] = true;
+void primMST(int graph[V][V])
 
-    for (const Edge &edge : graph[startVertex])
+{
+    int parent[V];
+    int key[V];
+    bool mstSet[V];
+
+    for (int i = 0; i < V; i++)
+        key[i] = INT_MAX, mstSet[i] = false;
+
+    key[0] = 0;
+    parent[0] = -1;
+
+    for (int count = 0; count < V - 1; count++)
 
     {
-        pq.push(edge);
+        int u = minKey(key, mstSet);
+        mstSet[u] = true;
+
+        for (int v = 0; v < V; v++)
+            if (graph[u][v] && mstSet[v] == false && graph[u][v] < key[v])
+                parent[v] = u, key[v] = graph[u][v];
     }
 
-    cout << "\nMinimum Spanning Tree Edges...\n\n";
-
-    while (!pq.empty())
-
-    {
-        Edge minEdge = pq.top();
-        pq.pop();
-        int dest = minEdge.dest;
-        int weight = minEdge.weight;
-
-        if (visited[dest])
-
-        {
-            continue;
-        }
-
-        cout << startVertex << " - " << dest << " : " << weight << endl;
-        visited[dest] = true;
-
-        for (const Edge &edge : graph[dest])
-
-        {
-            if (!visited[edge.dest])
-
-            {
-                pq.push(edge);
-            }
-        }
-    }
+    printMST(parent, graph);
 }
 
 int main()
@@ -71,34 +56,16 @@ int main()
 {
     cout << "\nAhan Jain\nA2305221174\n";
 
-    int numVertices,
-        numEdges;
+    int graph[V][V] = {
+        {0, 2, 0, 5, 0},
+        {2, 0, 1, 3, 3},
+        {0, 1, 0, 0, 4},
+        {5, 3, 0, 0, 3},
+        {0, 3, 4, 3, 0}};
 
-    cout << "\nEnter the Number of Vertices: ";
-    cin >> numVertices;
+    primMST(graph);
 
-    cout << "Enter the Number of Edges: ";
-    cin >> numEdges;
-
-    vector<vector<Edge>> graph(numVertices);
-
-    cout << "\nEnter Edge Details (i.e. Source, Destination and Weight)...\n"
-         << endl;
-
-    for (int i = 0; i < numEdges; ++i)
-
-    {
-        int src, dest, weight;
-        cout << "Edge " << i + 1 << ": ";
-        cin >> src >> dest >> weight;
-        graph[src].push_back({dest, weight});
-        graph[dest].push_back({src, weight});
-    }
-
-    int startVertex;
-    cout << "\nEnter the Start Vertex: ";
-    cin >> startVertex;
-    primMinimumSpanningTree(graph, startVertex);
     cout << endl;
+
     return 0;
 }
