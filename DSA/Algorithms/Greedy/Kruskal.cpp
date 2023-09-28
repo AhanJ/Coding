@@ -117,5 +117,7 @@ int main()
         cout << edge.src << " - " << edge.dest << " : " << edge.weight << endl;
     }
 
+    cout << endl;
+
     return 0;
 }
