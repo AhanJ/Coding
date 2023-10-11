@@ -107,5 +107,7 @@ int main()
 
     dijkstra(graph, src);
 
+    cout << endl;
+
     return 0;
 }
