@@ -3,100 +3,70 @@
 
 using namespace std;
 
-int n;               // Number of items
-vector<int> values;  // Array to store values of items
-vector<int> weights; // Array to store weights of items
-vector<int> vsol;    // Stores the selected items
-int solution = 0;    // Maximum value
-bool issol = false;  // Indicates if a solution exists
-
-void Knapsack(int i, int max, int value)
+// Structure to represent an item
+struct Item
 {
-    vector<int> temp; // Temporary vector to store the current combination of items
+    int value;
+    int weight;
+};
 
-    for (int k = i; k < n; k++)
+// Function to solve the 0/1 Knapsack problem using backtracking
+void knapsackBacktracking(vector<Item> &items, int capacity, int &maxProfit, vector<int> &selectedItems, vector<int> &currentItems, int currentWeight, int currentValue, int index)
+{
+    if (index == items.size())
     {
-        if (max > 0)
+        if (currentValue > maxProfit)
         {
-            if (weights[k] <= max)
-            {
-                temp.push_back(k);
-                if (value + values[k] >= solution)
-                {
-                    solution = value + values[k];
-                    issol = true;
-                }
-            }
-            if ((k + 1) < n)
-            {
-                Knapsack(k + 1, max - weights[k], value + values[k]);
-            }
-            else
-            {
-                if (issol == true)
-                {
-                    if (!vsol.empty())
-                        vsol.clear();
-                    std::move(temp.begin(), temp.end(), std::back_inserter(vsol));
-                    temp.clear();
-                    issol = false;
-                }
-                else
-                {
-                    temp.clear();
-                }
-                return;
-            }
+            maxProfit = currentValue;
+            selectedItems = currentItems;
         }
-        else
-        {
-            if (issol == true)
-            {
-                if (!vsol.empty())
-                    vsol.clear();
-                std::move(temp.begin(), temp.end(), std::back_inserter(vsol));
-                temp.clear();
-                issol = false;
-            }
-            else
-            {
-                temp.clear();
-            }
-            return;
-        }
+        return;
     }
+
+    if (currentWeight + items[index].weight <= capacity)
+    {
+        currentItems[index] = 1;
+        knapsackBacktracking(items, capacity, maxProfit, selectedItems, currentItems, currentWeight + items[index].weight, currentValue + items[index].value, index + 1);
+        currentItems[index] = 0;
+    }
+
+    knapsackBacktracking(items, capacity, maxProfit, selectedItems, currentItems, currentWeight, currentValue, index + 1);
 }
 
 int main()
 {
-    int maxWeight;
+    cout << "\nAhan Jain\nA2305221174\n\n";
 
-    // Input the number of items
-    cout << "Enter the number of items: ";
+    int n; // Number of items
+    cout << "Enter the Number of Items: ";
     cin >> n;
+    cout << endl;
 
-    values.resize(n);
-    weights.resize(n);
-
-    // Input the values and weights of the items
-    for (int i = 0; i < n; ++i)
+    vector<Item> items(n);
+    for (int i = 0; i < n; i++)
     {
-        cout << "Enter the value and weight of item " << i + 1 << ": ";
-        cin >> values[i] >> weights[i];
+        cout << "Enter Value and Weight for Item " << i + 1 << ": ";
+        cin >> items[i].value >> items[i].weight;
     }
 
-    // Input the maximum weight capacity of the knapsack
-    cout << "Enter the maximum weight capacity of the knapsack: ";
-    cin >> maxWeight;
+    int capacity;
+    cout << "\nEnter the Knapsack Capacity: ";
+    cin >> capacity;
 
-    Knapsack(0, maxWeight, 0);
+    int maxProfit = 0;
+    vector<int> selectedItems(n, 0);
+    vector<int> currentItems(n, 0);
 
-    cout << "Selected items to maximize value:" << endl;
-    for (int idx : vsol)
+    knapsackBacktracking(items, capacity, maxProfit, selectedItems, currentItems, 0, 0, 0);
+
+    cout << "\nSelected Items for Maximum Profit...\n\n";
+    for (int i = 0; i < n; i++)
     {
-        cout << "Value: " << values[idx] << ", Weight: " << weights[idx] << endl;
+        if (selectedItems[i])
+            cout << "Item " << i + 1 << " ";
     }
 
-    cout << "Total value: " << solution << endl;
+    cout << "\n\nTotal Profit: " << maxProfit << endl;
+
     return 0;
 }
