@@ -61,6 +61,8 @@ string longestCommonSubsequence(string str1, string str2)
 int main()
 
 {
+
+    cout << "\nAhan Jain\nA2305221174\n\n";
     string str1, str2;
 
     cout << "Enter the First String: ";
@@ -74,14 +76,16 @@ int main()
     if (lcs == "")
 
     {
-        cout << "No Longest Common Subsequence Exists";
+        cout << "\nNo Longest Common Subsequence Exists";
     }
 
     else
 
     {
-        cout << "Longest Common Subsequence: " << lcs << endl;
+        cout << "\nLongest Common Subsequence: " << lcs << endl;
     }
+
+    cout << endl;
 
     return 0;
 }
