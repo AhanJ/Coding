@@ -21,8 +21,10 @@ string longestCommonSubsequence(string str1, string str2)
 
     // Build the dp array to store LCS lengths.
     for (int i = 1; i <= m; i++)
+
     {
         for (int j = 1; j <= n; j++)
+
         {
             if (str1[i - 1] == str2[j - 1])
                 dp[i][j] = 1 + dp[i - 1][j - 1];
@@ -36,14 +38,17 @@ string longestCommonSubsequence(string str1, string str2)
 
     int i = m, j = n;
     while (i > 0 && j > 0)
+
     {
         if (str1[i - 1] == str2[j - 1])
+
         {
             lcs[index - 1] = str1[i - 1];
             i--;
             j--;
             index--;
         }
+
         else if (dp[i - 1][j] > dp[i][j - 1])
             i--;
         else
@@ -66,7 +71,17 @@ int main()
 
     string lcs = longestCommonSubsequence(str1, str2);
 
-    cout << "Longest Common Subsequence: " << lcs << endl;
+    if (lcs == "")
+
+    {
+        cout << "No Longest Common Subsequence Exists";
+    }
+
+    else
+
+    {
+        cout << "Longest Common Subsequence: " << lcs << endl;
+    }
 
     return 0;
 }
