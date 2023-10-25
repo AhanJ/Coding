@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <climits>
+#include <cstring>
 
 using namespace std;
 
