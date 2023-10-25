@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
+
 using namespace std;
+
 void printBoard(const vector<vector<int>> &board)
 {
     int N = board.size();
@@ -31,14 +33,15 @@ void printQueenPositions(const vector<vector<int>> &board)
             }
         }
     }
-    cout << "Queen positions (in terms of column number for each row) : <";
+    cout << "Queen Positions (in Terms of Column Number for Each Row): < ";
     for (int i = 0; i < N; i++)
     {
         cout << positions[i] + 1;
         if (i != N - 1)
             cout << ", ";
     }
-    cout << ">" << endl;
+    cout << " >" << endl
+         << endl;
 }
 bool isSafe(const vector<vector<int>> &board, int row, int col)
 {
@@ -80,22 +83,28 @@ bool solveNQ(vector<vector<int>> &board, int col)
 void solveNQueens()
 {
     int N;
-    cout << "Enter the size of the chessboard (N): ";
+    cout << "Enter the Size of the Chessboard (N): ";
     cin >> N;
     vector<vector<int>> board(N, vector<int>(N, 0));
     if (!solveNQ(board, 0))
     {
-        cout << "Solution does not exist." << endl;
+        cout << "Solution Does Not Exist." << endl;
     }
     else
     {
-        cout << "Solution found:" << endl;
+        cout << "\nSolution Found!" << endl
+             << endl;
         printQueenPositions(board);
         printBoard(board);
     }
 }
 int main()
+
 {
+    cout << "\nAhan Jain\nA2305221174\n\n";
+
     solveNQueens();
+    cout << endl;
+
     return 0;
 }
