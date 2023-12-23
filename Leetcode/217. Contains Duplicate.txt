@@ -1,0 +1,88 @@
+// Approach 1
+
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+
+        for (int i = 0; i < nums.size() - 1; ++i){
+            for (int j = i + 1; j < nums.size(); ++j){
+                if(nums[i] == nums[j]){
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+};
+
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        
+        vector<int> :: iterator it1, it2;
+
+        for (it1 = nums.begin(); it1 != nums.end(); ++it1){
+            for (it2 = it1 + 1; it2 != nums.end(); ++it2){
+                if(*(it1) == *(it2)){
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+};
+
+// Approach 2
+
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+
+        for (int i = 0; i < nums.size() - 1; i++){
+            if (nums[i] == nums[i+1]){
+                return true;
+            }
+        }
+        
+        return false;
+    }
+};
+
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+
+        vector<int> :: iterator it;
+
+        for (it = nums.begin(); it != nums.end(); it++){
+            if (*it == *(++it)){
+                return true;
+            }
+        }
+        
+        return false;
+    }
+};
+
+// Approach 3
+
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        unordered_map<int,int> mpp;
+       
+        for(int &x : nums){
+           mpp[x]++;
+           
+           if(mpp[x] > 1){
+                return true;
+            }
+        }
+
+        return false;
+    }
+};
