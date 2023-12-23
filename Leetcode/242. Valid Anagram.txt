@@ -1,0 +1,52 @@
+// Approach 1
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+
+        if (s.size() != t.size()) {
+            return false;
+        }
+
+        sort(s.begin(), s.end());
+        sort(t.begin(), t.end());
+
+        if (s == t) {
+            return true;
+        }
+
+        return false;
+    }
+};
+
+// Approach 2
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+
+        if (s.size() != t.size()) {
+            return false;
+        }
+
+        unordered_map<char, int> mpp_s;
+        unordered_map<char, int> mpp_t;
+
+        for (auto& x : s) {
+            mpp_s[x]++;
+        }
+
+        for (auto& x : t) {
+            mpp_t[x]++;
+        }
+
+        for (auto& x : s) {
+
+            if (mpp_s[x] != mpp_t[x]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+};
